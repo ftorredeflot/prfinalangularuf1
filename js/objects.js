@@ -11,9 +11,23 @@ var equip = new Equip("patata",50,20,"agresiu");
 
 
 var p1 =new Jugador("farlopez","victor","funcio",50);
+var p2 =new Jugador("metalman","javi","funcio",51);
+var p3 =new Jugador("torrafa","paco","funcio",52);
+var p4 =new Jugador("elnuclear","trump","funcio",53);
 
+equip.addPlayer(p1);
+equip.addPlayer(p2);
+equip.addPlayer(p3);
+equip.addPlayer(p4);
 
 console.log(equip.nom);
+console.log(equip.getPlayer("torrafa"));
+console.log(equip.getPLayerMaxPunts());
+var a='{"name":"dddd"}';
+
+var obj = JSON.parse(a);
+p1.updatePlayer(obj);
+console.log(p1);
 
 function Equip(nom,win,lose,tipus){
     this.nom=nom;
@@ -24,10 +38,11 @@ function Equip(nom,win,lose,tipus){
     this.addPlayer = function(jugador){
         this.jugadors.push(jugador);
     };
-    this.getPlayer = function(nickname){
+    this.getPlayer = function(nicknames){ 
+        var ok;
         for (var player in this.jugadors){
-          if(player.nom.equals(nickname)){
-              var ok = player;
+          if(this.jugadors[player].nickname==nicknames){
+              ok= this.jugadors[player];
           }  
         }
         return ok;
@@ -35,7 +50,7 @@ function Equip(nom,win,lose,tipus){
     this.delPlayer = function(nickname){
         var player;
         for (player in this.jugadors){
-          if(player.nom.equals(nickname)){
+          if(this.jugadors[player].nom==nickname){
               var index = this.jugadors.indexOf(player);
               if (index > -1){
                   this.jugadors.splice(index, 1);
@@ -45,10 +60,11 @@ function Equip(nom,win,lose,tipus){
     };
     this.getPLayerMaxPunts = function(){
         var punts=0;
+        var res;
          for (var player in this.jugadors){
-          if(player.punts>punts){
-              punts=player.punts;
-              var res = player;
+          if(this.jugadors[player].punts>punts){
+              punts=this.jugadors[player].punts;
+              res = this.jugadors[player];
           }  
         }
         return res;
@@ -62,9 +78,11 @@ function Jugador(nick,nom,funcio,punts){
     this.punts=punts;
     
     this.updatePlayer = function (param) {
+        
+        console.log(param);
 
         this.nom = param.name || this.nom;
-        this.funcio = param.name || this.funcio;
+        this.funcio = param.pos || this.funcio;
         this.punts = param.points || this.punts;
 
     };

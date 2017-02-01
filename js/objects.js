@@ -23,10 +23,15 @@ equip.addPlayer(p4);
 console.log(equip.nom);
 console.log(equip.getPlayer("torrafa"));
 console.log(equip.getPLayerMaxPunts());
-var a='{"name":"dddd"}';
 
+//crear json
+var a='{"name":"dddd"}';
+//convertirlo en objecte
 var obj = JSON.parse(a);
 p1.updatePlayer(obj);
+console.log(equip.getPlayer("farlopez"));
+equip.delPlayer(p1.nickname);
+console.log(equip.getPlayer("farlopez"));
 console.log(p1);
 
 function Equip(nom,win,lose,tipus){
@@ -50,11 +55,10 @@ function Equip(nom,win,lose,tipus){
     this.delPlayer = function(nickname){
         var player;
         for (player in this.jugadors){
-          if(this.jugadors[player].nom==nickname){
-              var index = this.jugadors.indexOf(player);
-              if (index > -1){
-                  this.jugadors.splice(index, 1);
-              }
+          if(this.jugadors[player].nickname==nickname){
+              var index = player;
+              this.jugadors.splice(index, 1);
+              
           }  
         }
     };
